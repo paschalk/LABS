@@ -8,11 +8,34 @@
 <head>
 	<title>Welcome Page</title>
 	<script type= "text/javascript" src="validate.js"></script>
+	<script type="text/javascript" src="apikey.js"></script>
 	<link rel="stylesheet" type="text/css" href="validate.css">
+
+
+
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css.map">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css.map">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css.map">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css.map">
+	
 </head>
 <body>
-	<p>This is a private page</p>
-	<p>We want to protect it</p>
-	<p><a href="logout.php">Logout</a></p>
+	<p align="right"><a href="logout.php">Logout</a></p>
+	<hr>
+	<h3>Here, we will create an API that will allow users/developers to order items from external systems.</h3>
+	<hr>
+	<h4>We now put this feature of allowing users to generate an API key. Click the button to generate the API key</h4>
+
+	<button class="btn btn-primary" id="api-key-btn">Generate API key</button><br><br>
+
+	<strong>Your API key: </strong>(Not that if your API key is already )
 </body>
 </html>

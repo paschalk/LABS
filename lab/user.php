@@ -14,20 +14,27 @@
        private $username;
        private $password;
 
-       function __construct($first_name,$last_name,$user_city,$username,$password)
+       private $profile_image;
+
+       private $utc_timestamp;
+       private $time_zone_offset;
+
+
+       function __construct($first_name,$last_name,$user_city,$username,$password,$profile_image,$utc_timestamp, $time_zone_offset)
        {
           $this->first_name = $first_name;
           $this->last_name = $last_name;
           $this->user_city = $user_city;
           $this->username=$username;
           $this->password=$password;
+          $this->profile_image=$profile_image;
+          $this->utc_timestamp = $utc_timestamp;
+          $this->time_zone_offset = $time_zone_offset;
        }
 
        public static function create()
        {
-           
-          
-          $instance = new self("","", "","","");
+          $instance = new self("","","","","","","","");
            return $instance;
        }
        public function setUsername($username)
@@ -64,8 +71,11 @@
            $uname = $this->username;
            $this->hashPassword();
            $pass = $this->password;
+           $profile_image = $this->profile_image;
+           $utc_timestamp = $this->utc_timestamp;
+           $time_zone_offset = $this->time_zone_offset;
 
-           $res = mysqli_query($conn,"INSERT INTO userd(first_name,last_name,user_city,username,password)  VALUES('$fn','$ln','$city','$uname','$pass')");
+           $res = mysqli_query($conn,"INSERT INTO userd(first_name,last_name,user_city,username,password, profile_image, utc_timestamp, time_zone_offset)  VALUES('$fn','$ln','$city','$uname','$pass','$profile_image','$utc_timestamp','$time_zone_offset')");
 
            return $res;
        }
