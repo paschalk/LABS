@@ -1,7 +1,7 @@
 <?php
    interface Crud{
 
-    public function save($conn);
+    public function save();
     public function readAll();
     public function readUnique();
     public function search();

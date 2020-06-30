@@ -1,8 +1,9 @@
 <?php
 	session_start();
-	if(!isset($_SESSION['username'])){
-		header("Location:login.php");
-	}
+	//if(!isset($_SESSION['username'])){
+		//header("Location:login.php");
+		//echo "Welcome to the party";
+	//}
 ?>
 <html>
 <head>
@@ -10,7 +11,6 @@
 	<script type= "text/javascript" src="validate.js"></script>
 	<script type="text/javascript" src="apikey.js"></script>
 	<link rel="stylesheet" type="text/css" href="validate.css">
-
 
 
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
@@ -36,6 +36,11 @@
 
 	<button class="btn btn-primary" id="api-key-btn">Generate API key</button><br><br>
 
-	<strong>Your API key: </strong>(Not that if your API key is already )
+	<strong>Your API key: </strong>(Not that if your API key is already in use by already running applications, generating a new api key will stop the application from functioning)<br>
+	<textarea cols="100" rows="2" id="api_key" readonly><?php echo fetchUserApiKey();?></textarea>
+
+	<h3>Service description:</h3>
+	We have a service that allows eternal applications to order food and also pull all order status by using order id. Let's do it.
+	<hr>
 </body>
 </html>

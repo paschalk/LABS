@@ -1,7 +1,8 @@
 <?php
   include_once 'DBConnector.php';
   include_once 'user.php';
-  //include_once 'fileUploader';
+  include_once 'fileUploader.php';
+
 
   $con = new DBConnector;
 
@@ -12,16 +13,14 @@
       $city = $_POST['user_city'];
       $username = $_POST['username'];
       $password = $_POST['password'];
-      $profile_image = $_POST['profile_image'];
+      //$profile_image = $_POST['profile_image'];
 
       $utc_timestamp = $_POST['utc_timestamp'];
       $time_zone_offset = $_POST['time_zone_offset'];
 
+       $user = new User($first_name,$last_name,$city,$username,$password);
 
-      $user = new User($first_name,$last_name,$city,$username,$password,$profile_image, $utc_timestamp,$time_zone_offset);
-
-      //$uploader = new FileUploader;
-
+       $uploader = new FileUploader;
 
       if(!$user->valiteForm())
       {
@@ -29,10 +28,12 @@
         header("Refresh:0");
         die();
       }
-      $res = $user->save($con->conn);
+      $res = $user->save();
 
-      //$file_upload_response = $uploader->uploadFile();
 
+      $file_upload_response = $uploader->uploadFile();
+
+  
 
    if($res)
    {
@@ -53,11 +54,12 @@
       <script type = "text/javacsript" src = "validate.js"></script>
       <link rel = "stylesheet" type = "text/css" href = "validate.css">
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script type="text/javascript" src="timezone.js"></script>
+      
+      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script type = "text/javascript" src = "timezone.js"></script>
     </head>
 <body>
-    <form method = "post" name = "user_details" id = "user_details" onsubmit = "return validateForm()" action = "<?=$_SERVER['PHP_SELF']?>">
+    <form method = "post" name = "user_details" enctype="multipart/form-data" id = "user_details" onsubmit = "return validateForm()" action = "<?=$_SERVER['PHP_SELF']?>">
        <table align = "centre">
            <tr>
              <td>
@@ -88,16 +90,18 @@
             <tr>
              <td><input type = "password" name = "password"  required placeholder = "Password"/></td>
             </tr>
+            
             <tr>
-            	<td>Profile image: <input type="file" name="profile_image" ></td>
+              <td>Profile Image: <input type = "file" name="fileToUpload" id="fileToUpload"></td>
             </tr>
+            
             <tr>
               <td><button type = "submit" name = "btn-save"><strong>SAVE</strong></td>
             </tr>
-
-            <input type="hidden" name="utc_timestamp" id="utc_timestamp" value=""/>
-            <input type="hidden" name="time_zone_offset" id="time_zone_offset" value="">
-
+            
+            <input type = "hidden" name = "utc_timestamp" id = "utc_timestamp" value = ""/>
+            <input type = "hidden" name = "time_zone_offset" id = "time_zone_offset" value = "" />
+            
             <tr>
               <td><a href = "login.php">Login</a><td>
             </tr>

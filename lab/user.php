@@ -2,8 +2,10 @@
    include_once 'DBConnector.php';
    include('crud.php');
    include('authenticator.php');
+   include "fileUploader.php";
+
  
-  $conn = new DBConnector;
+  //$conn = new DBConnector;
 
    class User implements Crud,Authenticator {
        private $user_id;
@@ -14,27 +16,30 @@
        private $username;
        private $password;
 
-       private $profile_image;
+       //private $profile_image;
+       
 
-       private $utc_timestamp;
-       private $time_zone_offset;
+       //private $utc_timestamp;
+       //private $time_zone_offset;
 
 
-       function __construct($first_name,$last_name,$user_city,$username,$password,$profile_image,$utc_timestamp, $time_zone_offset)
+       private static $target_directory="uploads/";
+
+       function __construct($first_name,$last_name,$user_city,$username,$password)
        {
           $this->first_name = $first_name;
           $this->last_name = $last_name;
           $this->user_city = $user_city;
           $this->username=$username;
           $this->password=$password;
-          $this->profile_image=$profile_image;
-          $this->utc_timestamp = $utc_timestamp;
-          $this->time_zone_offset = $time_zone_offset;
+          //$this->profile_image=$profile_image;
+          //$this->utc_timestamp = $utc_timestamp;
+          //$this->time_zone_offset = $time_zone_offset;
        }
 
        public static function create()
        {
-          $instance = new self("","","","","","","","");
+          $instance = new self("","","","","");
            return $instance;
        }
        public function setUsername($username)
@@ -63,7 +68,7 @@
        {
           return $this->user_id;
        }
-       public function save($conn)
+       public function save()
        {
            $fn = $this->first_name;
            $ln = $this->last_name;
@@ -71,11 +76,18 @@
            $uname = $this->username;
            $this->hashPassword();
            $pass = $this->password;
-           $profile_image = $this->profile_image;
-           $utc_timestamp = $this->utc_timestamp;
-           $time_zone_offset = $this->time_zone_offset;
+           //$profile_image = $this->profile_image;
+           //$utc_timestamp = $this->utc_timestamp;
+           //$time_zone_offset = $this->time_zone_offset;
 
-           $res = mysqli_query($conn,"INSERT INTO userd(first_name,last_name,user_city,username,password, profile_image, utc_timestamp, time_zone_offset)  VALUES('$fn','$ln','$city','$uname','$pass','$profile_image','$utc_timestamp','$time_zone_offset')");
+           $file_name=$_FILES["fileToUpload"]["name"];
+           $dir=self::$target_directory.$file_name;
+
+           $con = new DBConnector;
+
+
+            $res = mysqli_query($con->conn,"INSERT INTO userd(first_name,last_name,user_city,username,password,file_name,file_dir)  VALUES('$fn','$ln','$city','$uname','$pass','$file_name','$dir')");
+
 
            return $res;
        }

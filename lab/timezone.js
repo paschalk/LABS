@@ -7,7 +7,9 @@ $(document).ready(function(){
 
 	//we convert our time to Universal Time Coordinated/ Universla Coordinated Time
 
-	$('$time_zone_offset').val(offset);
-	$('utc_timestamp').val(utc_timestamp);
+	var utc_timestamp = timestamp + (6000*offset);
+
+	$('#time_zone_offset').val(offset);
+	$('#utc_timestamp').val(utc_timestamp);
 	
 });
